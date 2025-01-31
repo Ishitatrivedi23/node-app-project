@@ -1,79 +1,26 @@
-const express = require('express');
+const express = require('express')
+const appRoutes = require('./routes/appRoutes')
 const bodyParser = require('body-parser');
-const routes = require('./routes/appRoutes');
-const cors = require('cors');
-const mysql = require('mysql2');  // Import mysql2 module
+const cors = require('cors')
+// const cors = require("cors");
 
 const app = express();
+app.use(cors())
 
-// Enable CORS
-app.use(cors());
+// const corsOptions = {
+//   origin: "http://localhost:8000"
+// };
 
-// Set view engine to EJS
-app.set("view engine", 'ejs');
-app.set('views', 'views');
+// app.use(cors(corsOptions));
 
-// Use bodyParser middleware to parse incoming requests
-app.use(bodyParser.urlencoded({ extended: false }));
+const PORT= process.env.PORT || 8000
 
-// MySQL connection setup (ensure this is only declared once)
-const connection = mysql.createConnection({
-  host: '127.0.0.1',  // Replace with your MySQL host
-  user: 'root',  // Replace with your MySQL username
-  password: 'Aditi@1122',  // Replace with your MySQL password
-  database: 'new',  // Replace with your MySQL database name
-  connectTimeout: 10000 // Fixed missing comma here
-});
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
+app.set("view engine", 'ejs')
+app.set('views', 'views')
+app.use(bodyParser.urlencoded({ extended: false }))
 
-// Connect to MySQL
-connection.connect((err) => {
-  if (err) {
-    console.error('Error connecting to MySQL:', err.stack);
-    process.exit(1);  // Exit if connection fails
-  }
-  console.log('Connected to MySQL as id ' + connection.threadId);
-});
+app.use("/", appRoutes )
 
-// Example query to check MySQL connection (optional)
-connection.query('SELECT 1 + 1 AS solution', (err, results, fields) => {
-  if (err) {
-    console.error('Error in query:', err);
-    return;
-  }
-  console.log('Query result:', results[0].solution);  // Should print '2'
-});
-
-// Pass MySQL connection to routes
-app.use((req, res, next) => {
-  req.dbConnection = connection;  // Make the connection available in routes
-  next();
-});
-
-// Set up routes
-app.use('/', routes);
-
-// Start the server
-app.listen(5000, () => {
-  console.log('Server is listening on port 5000');
-});
-
-// Gracefully close the MySQL connection when the server is terminated
-let isConnectionClosed = false;
-
-process.on('SIGINT', () => {
-  if (!isConnectionClosed) {
-    console.log('Closing MySQL connection...');
-    connection.end((err) => {
-      if (err) {
-        console.error('Error while closing the connection:', err);
-      } else {
-        console.log('MySQL connection closed.');
-      }
-      isConnectionClosed = false;
-      process.exit();
-    });
-  } else {
-    console.log('MySQL connection is already closed.');
-    process.exit();
-  }
-});
+app.listen(PORT, ()=> {console.log(`Server is listening on port ${PORT}`);})
