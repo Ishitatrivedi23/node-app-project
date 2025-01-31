@@ -1,8 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const routes = require('./routes/appRoutes');
+const routes = require('.appRoutes');
 const cors = require('cors');
 const mysql = require('mysql2');  // Import mysql2 module
+const connection = require('./db/conn');
+
 
 const app = express();
 
