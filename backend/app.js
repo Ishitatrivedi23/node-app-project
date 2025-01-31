@@ -21,7 +21,7 @@ const connection = mysql.createConnection({
   host: '127.0.0.1',  // Replace with your MySQL host
   user: 'root',  // Replace with your MySQL username
   password: 'Aditi@11',  // Replace with your MySQL password
-  database: 'new'  // Replace with your MySQL database name
+  database: 'new' , // Replace with your MySQL database name
   connectTimeout: 10000
 });
 
