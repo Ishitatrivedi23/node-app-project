@@ -1,10 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const routes = require('.appRoutes');
+const routes = require('./routes/appRoutes');
 const cors = require('cors');
 const mysql = require('mysql2');  // Import mysql2 module
-const connection = require('./db/conn');
-
 
 const app = express();
 
@@ -18,7 +16,7 @@ app.set('views', 'views');
 // Use bodyParser middleware to parse incoming requests
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// MySQL connection setup
+// MySQL connection setup (ensure this is only declared once)
 const connection = mysql.createConnection({
   host: '127.0.0.1',  // Replace with your MySQL host
   user: 'root',  // Replace with your MySQL username
