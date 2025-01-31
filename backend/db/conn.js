@@ -4,16 +4,14 @@ const mysql = require("mysql2");
 const connection = mysql.createConnection({
   host: 'localhost',  // Replace with your MySQL host
   user: 'root',  // Replace with your MySQL username
+  port: "3306",
   password: 'Aditi@1122',  // Replace with your MySQL password
   database: 'new',  // Replace with your MySQL database name
 });
 
 // open the MySQL connection
-connection.connect((error) => {
-  if (error) {
-    console.error("Error connecting to the database: ", error.message);
-    throw error;
-  }
+connection.connect(error => {
+  if (error) throw error;
   console.log("Successfully connected to the MYSQL database.");
 });
 
