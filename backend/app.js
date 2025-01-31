@@ -19,9 +19,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // MySQL connection setup
 const connection = mysql.createConnection({
   host: '127.0.0.1',  // Replace with your MySQL host
-  user: 'mysql',  // Replace with your MySQL username
+  user: 'root',  // Replace with your MySQL username
   password: 'Aditi@11',  // Replace with your MySQL password
   database: 'new'  // Replace with your MySQL database name
+  connectTimeout: 10000  // Timeout value in milliseconds (default is 10000 ms)
 });
 
 // Connect to MySQL
