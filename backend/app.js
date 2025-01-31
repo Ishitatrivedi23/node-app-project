@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const routes = require('./routes/appRoutes');
-var cors = require('cors');
+const cors = require('cors');
 const mysql = require('mysql2');  // Import mysql2 module
 
 const app = express();
@@ -21,8 +21,8 @@ const connection = mysql.createConnection({
   host: '127.0.0.1',  // Replace with your MySQL host
   user: 'root',  // Replace with your MySQL username
   password: 'Aditi@1122',  // Replace with your MySQL password
-  database: 'new' , // Replace with your MySQL database name
-  connectTimeout: 10000
+  database: 'new',  // Replace with your MySQL database name
+  connectTimeout: 10000 // Fixed missing comma here
 });
 
 // Connect to MySQL
@@ -57,15 +57,23 @@ app.listen(5000, () => {
   console.log('Server is listening on port 5000');
 });
 
-// Gracefully close the MySQL connection when server is terminated
+// Gracefully close the MySQL connection when the server is terminated
+let isConnectionClosed = false;
+
 process.on('SIGINT', () => {
-  console.log('Closing MySQL connection...');
-  connection.end((err) => {
-    if (err) {
-      console.error('Error while closing the connection:', err);
-    } else {
-      console.log('MySQL connection closed.');
-    }
+  if (!isConnectionClosed) {
+    console.log('Closing MySQL connection...');
+    connection.end((err) => {
+      if (err) {
+        console.error('Error while closing the connection:', err);
+      } else {
+        console.log('MySQL connection closed.');
+      }
+      isConnectionClosed = true;
+      process.exit();
+    });
+  } else {
+    console.log('MySQL connection is already closed.');
     process.exit();
-  });
+  }
 });
