@@ -69,7 +69,7 @@ process.on('SIGINT', () => {
       } else {
         console.log('MySQL connection closed.');
       }
-      isConnectionClosed = true;
+      isConnectionClosed = false;
       process.exit();
     });
   } else {
