@@ -22,7 +22,7 @@ const connection = mysql.createConnection({
   user: 'root',  // Replace with your MySQL username
   password: 'Aditi@11',  // Replace with your MySQL password
   database: 'new'  // Replace with your MySQL database name
-  connectTimeout: 10000  // Timeout value in milliseconds (default is 10000 ms)
+  connectTimeout: 10000
 });
 
 // Connect to MySQL
