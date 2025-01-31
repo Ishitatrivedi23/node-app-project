@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 const connection = mysql.createConnection({
   host: '127.0.0.1',  // Replace with your MySQL host
   user: 'root',  // Replace with your MySQL username
-  password: 'Aditi@11',  // Replace with your MySQL password
+  password: 'Aditi@1122',  // Replace with your MySQL password
   database: 'new' , // Replace with your MySQL database name
   connectTimeout: 10000
 });
