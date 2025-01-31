@@ -28,7 +28,7 @@ const connection = mysql.createConnection({
 connection.connect((err) => {
   if (err) {
     console.error('Error connecting to MySQL:', err.stack);
-    return;
+    process.exit(1);  // Exit if connection fails
   }
   console.log('Connected to MySQL as id ' + connection.threadId);
 });
@@ -42,7 +42,7 @@ connection.query('SELECT 1 + 1 AS solution', (err, results, fields) => {
   console.log('Query result:', results[0].solution);  // Should print '2'
 });
 
-// Pass MySQL connection to routes (if needed in routes)
+// Pass MySQL connection to routes
 app.use((req, res, next) => {
   req.dbConnection = connection;  // Make the connection available in routes
   next();
@@ -52,4 +52,19 @@ app.use((req, res, next) => {
 app.use('/', routes);
 
 // Start the server
-app.listen(5000, () => console.log('Server is listening on port 5000'));
+app.listen(5000, () => {
+  console.log('Server is listening on port 5000');
+});
+
+// Gracefully close the MySQL connection when server is terminated
+process.on('SIGINT', () => {
+  console.log('Closing MySQL connection...');
+  connection.end((err) => {
+    if (err) {
+      console.error('Error while closing the connection:', err);
+    } else {
+      console.log('MySQL connection closed.');
+    }
+    process.exit();
+  });
+});
