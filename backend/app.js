@@ -7,11 +7,11 @@ const cors = require('cors')
 const app = express();
 app.use(cors())
 
-// const corsOptions = {
-//   origin: "http://localhost:8000"
-// };
+const corsOptions = {
+  origin: "http://localhost:8000"
+ };
 
-// app.use(cors(corsOptions));
+ app.use(cors(corsOptions));
 
 const PORT= process.env.PORT || 8000
 
