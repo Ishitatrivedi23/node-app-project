@@ -17,14 +17,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use("/", appRoutes);
 
-connection.connect(err => {
-  if (err) {
-    console.error('Error connecting to MySQL:', err);
-    return;
-  }
-  console.log('Connected to MySQL');
-});
-
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
 });
