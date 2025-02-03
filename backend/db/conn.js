@@ -5,7 +5,7 @@ const pool = mysql.createPool({
   host: "localhost",    // or use your MySQL server IP
   user: "root",
   password: "Aditi@1122",
-  port: 3306,           // MySQL default port
+  port: 8000,           // MySQL default port
   database: "employees_db",
   connectTimeout: 10000
 });
