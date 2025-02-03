@@ -5,7 +5,7 @@ const connection = mysql.createConnection({
   host: "localhost",     // or use your MySQL server IP
   user: "root",
   password: "Aditi@1122",
-  port : 3306, 
+  port : 8000, 
   database: "employees_db" ,
 connectTimeout: 10000 
 });
