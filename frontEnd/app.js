@@ -1,21 +1,26 @@
-const express = require('express')
+const express = require('express');
+const appRoutes = require('./routes/appRoutes');
 const bodyParser = require('body-parser');
-const routes = require('./routes')
-var cors = require('cors')
+const cors = require('cors');
 
 const app = express();
 
-app.use(cors())
+// Enable CORS
+app.use(cors());
 
+// Set up the view engine
+app.set("view engine", 'ejs');
+app.set('views', 'views');
 
+// Middleware for parsing incoming requests
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.set("view engine", 'ejs')
+// Routes
+app.use("/", appRoutes);
 
-app.set('views', 'views')
-
-app.use(bodyParser.urlencoded({ extended: false }))
-
-app.use('/', routes)
-
-
-app.listen(5000, ()=>console.log('Server is listening on port 5000'))    
+// Start the server
+const PORT = process.env.PORT || 8000;
+app.listen(PORT, () => {
+  console.log(`Server is listening on port ${PORT}`);
+});
