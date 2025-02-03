@@ -5,7 +5,7 @@ const connection = mysql.createConnection({
   host: "127.0.0.1",      // Ensure MySQL is running on this IP or adjust accordingly
   user: "root",
   password: "Aditi@1122",
-  port: 8000,             // Use a number for the port, not a string
+  port: 3306,             // Use a number for the port, not a string
   database: "employees_db"
 });
 
