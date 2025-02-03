@@ -1,3 +1,6 @@
+const mysql = require("mysql2");
+
+// Create a connection pool to the database
 const pool = mysql.createPool({
   host: "localhost",    // or use your MySQL server IP
   user: "root",
@@ -15,3 +18,6 @@ pool.query('SELECT * FROM employees', (error, results) => {
   }
   console.log("Employees data:", results);
 });
+
+// Export pool for use in other modules
+module.exports = pool;
