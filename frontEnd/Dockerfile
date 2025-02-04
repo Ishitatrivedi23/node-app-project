@@ -3,7 +3,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
-RUN npm run build
+RUN npm install
 # Expose port 5000 for the frontend
 EXPOSE 5000
 EXPOSE 3306
