@@ -8,7 +8,7 @@ const connection = require('./db/conn');  // Make sure to import the connection 
 const app = express();
 app.use(cors());
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 8001;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
