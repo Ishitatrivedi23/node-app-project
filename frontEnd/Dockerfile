@@ -1,10 +1,10 @@
 FROM node:18-alpine
+RUN mkdir -p /app
 WORKDIR /app
-COPY package*.json ./
+COPY package*.json /app
 RUN npm install
-COPY . .
-RUN npm install
-# Expose port 5000 for the frontend
+COPY ./app
 EXPOSE 5000
 EXPOSE 3306
-CMD ["sh", "-c", "touch /app/initialized && npm start"]
+CMD ["npm", "start"]
+
