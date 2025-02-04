@@ -5,8 +5,7 @@ const connection = mysql.createConnection({
 host: "13.61.100.220",
   user: "root",
   password: "Aditi@1122",
-  port: 3306,             // Use a number for the port, not a string
-  database: "employees_db"
+  port: 8801,               database: "employees_db"
 });
 
 // open the MySQL connection
