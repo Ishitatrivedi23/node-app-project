@@ -1,4 +1,15 @@
 {
+  "name": "employee-frontend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "build": "echo \"No build process required\""
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
   "dependencies": {
     "body-parser": "^1.19.1",
     "cors": "^2.8.5",
@@ -7,15 +18,5 @@
     "mysql2": "^3.12.0",
     "node-fetch": "2.0",
     "pm2": "^5.1.2"
-  },
-  "name": "employee-frontend",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
-  },
-  "author": "",
-  "license": "ISC",
-  "description": ""
+  }
 }
