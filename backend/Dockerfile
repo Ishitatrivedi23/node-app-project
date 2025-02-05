@@ -9,8 +9,4 @@ RUN npm install
 COPY . .
 
 EXPOSE 8000
-EXPOSE 3306
-
-ENV NODE_ENV=production
-
-CMD ["npm", "start"]
+CMD ["npm", "app.js"]
