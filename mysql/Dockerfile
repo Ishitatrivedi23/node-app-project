@@ -4,9 +4,9 @@ FROM mysql:8.0
 # Set environment variables for MySQL root password, database, and user
 ENV MYSQL_ROOT_PASSWORD=Aditi@1122
 ENV MYSQL_DATABASE=employees_db
-ENV MYSQL_USER=root
+
 
 # Copy initialization SQL script into Docker container
-COPY mysql/init.sql /docker-entrypoint-initdb.d/
+COPY init.sql /docker-entrypoint-initdb.d/
 # Expose MySQL default port
 EXPOSE 3306
