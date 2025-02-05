@@ -7,7 +7,6 @@ ENV MYSQL_DATABASE=employees_db
 ENV MYSQL_USER=root
 
 # Copy initialization SQL script into Docker container
-COPY init.sql /docker-entrypoint-initdb.d/
-
+COPY mysql/init.sql /docker-entrypoint-initdb.d/
 # Expose MySQL default port
 EXPOSE 3306
