@@ -9,7 +9,7 @@ RUN npm install
 COPY . .
 
 EXPOSE 8000
-EXPOSSE 3306
+EXPOSE 3306
 
 ENV NODE_ENV=production
 
