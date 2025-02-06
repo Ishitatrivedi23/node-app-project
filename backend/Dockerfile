@@ -1,15 +1,18 @@
-FROM node:latest
+FROM node:18
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY package.json package-lock.json ./
 
 RUN npm install
 
 COPY . .
 
 EXPOSE 8000
+EXPOSE 8001
+EXPOSE 5000
+EXPOSE 3306
 
-ENV NODE_ENV=production
+
 
 CMD ["node", "app.js"]
