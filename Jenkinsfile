@@ -41,7 +41,7 @@ pipeline {
         stage('Build and Push Frontend') {
             steps {
                 script {
-                    sh 'docker build -t my-frontend ./frontend'
+                    sh 'docker build -t my-frontend ./frontEnd'
                     sh 'docker tag my-frontend:latest $FRONTEND_REPO:latest'
                     sh 'docker push $FRONTEND_REPO:latest'
                 }
