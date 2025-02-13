@@ -6,7 +6,7 @@ pipeline {
         BACKEND_REPO = '253490768277.dkr.ecr.eu-north-1.amazonaws.com/my-backend'
         FRONTEND_REPO = '253490768277.dkr.ecr.eu-north-1.amazonaws.com/my-frontend'
         MYSQL_REPO = '253490768277.dkr.ecr.eu-north-1.amazonaws.com/mysql'
-        EC2_PUBLIC_IP = '16.16.98.131'  // Replace with your actual EC2 instance public IP
+        EC2_PUBLIC_IP = '13.61.27.148'
     }
 
     stages {
@@ -30,18 +30,6 @@ pipeline {
             }
         }
 
-        stage('Build and Push Frontend Image') {
-            steps {
-                script {
-                    sh """
-                    docker build -t frontend-image ./frontEnd
-                    docker tag frontend-image:latest $FRONTEND_REPO:latest
-                    docker push $FRONTEND_REPO:latest
-                    """
-                }
-            }
-        }
-
         stage('Build and Push Backend Image') {
             steps {
                 script {
@@ -49,6 +37,18 @@ pipeline {
                     docker build -t backend-image ./backend
                     docker tag backend-image:latest $BACKEND_REPO:latest
                     docker push $BACKEND_REPO:latest
+                    """
+                }
+            }
+        }
+
+        stage('Build and Push Frontend Image') {
+            steps {
+                script {
+                    sh """
+                    docker build -t frontend-image ./frontEnd
+                    docker tag frontend-image:latest $FRONTEND_REPO:latest
+                    docker push $FRONTEND_REPO:latest
                     """
                 }
             }
@@ -69,29 +69,21 @@ pipeline {
         stage('Deploy to EC2') {
             steps {
                 script {
-                    sshagent(['ec2-key']) {  // Use Jenkins SSH credentials
+                    sshagent(['ec2-key']) {  // Jenkins SSH credential ID
                         sh """
                         ssh -o StrictHostKeyChecking=no ubuntu@$EC2_PUBLIC_IP << EOF
-                        echo "Stopping existing containers..."
                         docker stop my-backend my-frontend mysql || true
                         docker rm my-backend my-frontend mysql || true
 
-                        echo "Pulling new images from ECR..."
                         docker pull $BACKEND_REPO:latest
                         docker pull $FRONTEND_REPO:latest
                         docker pull $MYSQL_REPO:latest
 
-                        echo "Creating Docker network..."
                         docker network create my-app-network || true
 
-                        echo "Starting MySQL container on port 3306..."
-                        docker run -d --name mysql --network my-app-network -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=mydb -p 3306:3306 $MYSQL_REPO:latest
-
-                        echo "Starting Backend container on port 8000..."
-                        docker run -d --name my-backend --network my-app-network -p 8000:8000 $BACKEND_REPO:latest
-
-                        echo "Starting Frontend container on port 5000..."
-                        docker run -d --name my-frontend --network my-app-network -p 5000:5000 $FRONTEND_REPO:latest
+                        docker run -d --name mysql --network my-app-network -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=mydb $MYSQL_REPO:latest
+                        docker run -d --name my-backend --network my-app-network -p 5000:5000 $BACKEND_REPO:latest
+                        docker run -d --name my-frontend --network my-app-network -p 80:3000 $FRONTEND_REPO:latest
                         EOF
                         """
                     }
