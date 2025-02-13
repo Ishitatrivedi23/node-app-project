@@ -31,7 +31,7 @@ pipeline {
         stage('Build and Push Backend') {
             steps {
                 script {
-                    sh 'docker build -t my-backend ./Backend'
+                    sh 'docker build -t my-backend ./backend'
                     sh 'docker tag my-backend:latest $BACKEND_REPO:latest'
                     sh 'docker push $BACKEND_REPO:latest'
                 }
@@ -41,7 +41,7 @@ pipeline {
         stage('Build and Push Frontend') {
             steps {
                 script {
-                    sh 'docker build -t my-frontend ./Frontend'
+                    sh 'docker build -t my-frontend ./frontend'
                     sh 'docker tag my-frontend:latest $FRONTEND_REPO:latest'
                     sh 'docker push $FRONTEND_REPO:latest'
                 }
@@ -51,7 +51,7 @@ pipeline {
         stage('Build and Push MySQL') {
             steps {
                 script {
-                    sh 'docker build -t mysql ./MySQL'
+                    sh 'docker build -t mysql ./mysql'
                     sh 'docker tag mysql:latest $MYSQL_REPO:latest'
                     sh 'docker push $MYSQL_REPO:latest'
                 }
